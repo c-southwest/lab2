@@ -8,33 +8,28 @@ atomic_counter_lock::atomic_counter_lock()
 
 int atomic_counter_lock::increment() {
     // TODO: Add locks here
-    m_lock.lock();
+    std::lock_guard<std::mutex> mylock(m_lock);
     int prev_value = m_value;
     m_value = m_value + 1;
-    m_lock.unlock();
     return prev_value;
 }
 
 int atomic_counter_lock::decrement() {
     // TODO: Add locks here
-    m_lock.lock();
+    std::lock_guard<std::mutex> mylock(m_lock);
     int prev_value = m_value;
     m_value = m_value - 1;
-    m_lock.unlock();
     return prev_value;
 }
 
 void atomic_counter_lock::set(int value) {
     // TODO: Add locks here
-    m_lock.lock();
+    std::lock_guard<std::mutex> mylock(m_lock);
     m_value = value;
-    m_lock.unlock();
 }
 
 int atomic_counter_lock::get() {
     // TODO: Add locks here
-    m_lock.lock();
-    int v = m_value;
-    m_lock.unlock();
-    return v;
+    std::lock_guard<std::mutex> mylock(m_lock);
+    return m_value;
 }
